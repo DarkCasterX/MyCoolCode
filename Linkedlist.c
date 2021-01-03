@@ -30,7 +30,7 @@ int length(List* list, int startPos)
 {
     if(isEmpty(list))
     {
-        return startPos + 1;
+        return startPos;
     }
     length(list->rest, startPos + 1);
 }
