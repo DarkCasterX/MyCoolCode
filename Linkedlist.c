@@ -1,6 +1,5 @@
 #include "LinkedList.h"
 
-
 //Constructor to create a list
 List* CreateList(int val, List* list)
 {
@@ -19,7 +18,7 @@ List* EmptyList()
 //Checks if the next element points to 0
 int isEmpty(List* empty)
 {
-    if(empty->rest == 0)
+    if(empty == nullptr)
     {
         return 1;
     }
@@ -87,13 +86,13 @@ void join_list(List* first, List* second)
 //Displays all the elements of a list in a way that is easy to visualize
 int DisplayList(List* display)
 {
-    printf("%d", display->data);
-    printf("->");
-    if(isEmpty(display))
+    if(display == nullptr)
     {
         printf("End of list.\n");
         return 0;
     }
+    printf("%d", display->data);
+    printf("->");
     DisplayList(display->rest);
 }
 
@@ -101,5 +100,6 @@ int main()
 {
     List* my_list = CreateList(4, CreateList(1, CreateList(2, CreateList(3, EmptyList()))));
     DisplayList(my_list);
+    DisplayList(0);
     return 0;
 }   
