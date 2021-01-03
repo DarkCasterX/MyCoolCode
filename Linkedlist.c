@@ -86,7 +86,7 @@ void join_list(List* first, List* second)
 //Displays all the elements of a list in a way that is easy to visualize
 int DisplayList(List* display)
 {
-    if(display == nullptr)
+    if(isEmpty(display))
     {
         printf("End of list.\n");
         return 0;
