@@ -15,7 +15,7 @@ List* EmptyList()
     return 0;
 }
 
-//Checks if the next element points to 0
+//Checks if the element points to 0
 int isEmpty(List* empty)
 {
     if(empty == nullptr)
@@ -49,7 +49,7 @@ List* searchPos(List* list, int start, int pos)
 //Grabs the last element of a list
 List* last(List* list)
 {
-    if(isEmpty(list))
+    if(isEmpty(list->rest))
     {
         return list;
     }
@@ -83,6 +83,12 @@ void join_list(List* first, List* second)
     connect->rest = second;
 }
 
+void append_list(List* list, int val)
+{
+    List* last_element = last(list);
+    last_element->rest = CreateList(val, EmptyList());
+}
+
 //Displays all the elements of a list in a way that is easy to visualize
 int DisplayList(List* display)
 {
@@ -99,7 +105,7 @@ int DisplayList(List* display)
 int main()
 {
     List* my_list = CreateList(4, CreateList(1, CreateList(2, CreateList(3, EmptyList()))));
+    append_list(my_list, 9);
     DisplayList(my_list);
-    DisplayList(0);
     return 0;
 }   
