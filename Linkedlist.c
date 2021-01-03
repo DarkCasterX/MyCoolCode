@@ -68,6 +68,8 @@ void insert(List* list, int val, int pos)
     List* next = prev->rest;
     prev->rest = CreateList(val, next);
     printf("Inserted element into list.\n");
+    prev = nullptr;
+    next = nullptr;
 }
 
 //Returns a new list with the sspecified value at the start
@@ -81,12 +83,15 @@ void join_list(List* first, List* second)
 {
     List* connect = last(first);
     connect->rest = second;
+    connect = nullptr;
 }
 
+//Adds an element to the end of the list
 void append_list(List* list, int val)
 {
     List* last_element = last(list);
     last_element->rest = CreateList(val, EmptyList());
+    last_element = nullptr;
 }
 
 //Displays all the elements of a list in a way that is easy to visualize
@@ -105,7 +110,6 @@ int DisplayList(List* display)
 int main()
 {
     List* my_list = CreateList(4, CreateList(1, CreateList(2, CreateList(3, EmptyList()))));
-    append_list(my_list, 9);
     DisplayList(my_list);
     return 0;
 }   
