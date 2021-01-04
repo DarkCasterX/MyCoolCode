@@ -9,10 +9,23 @@ List* CreateList(int val, List* list)
     return newlist;
 }
 
+//Creates a list of a specified size filled with the 'val' argument
+List* ListConstruct(int val, int start, int size)
+{
+    if(start < size - 1)
+    {
+        return CreateList(val, ListConstruct(val, start + 1, size));
+    }
+    else if( start >= size - 1)
+    {
+        return CreateList(val, EmptyList());
+    }
+}
+
 //Useful function to create an empty list
 List* EmptyList()
 {
-    return 0;
+    return nullptr;
 }
 
 //Checks if the element points to 0
@@ -25,7 +38,6 @@ int isEmpty(List* empty)
     return 0;
 }
 
-//Returns the amount of elements on a list
 int length(List* list, int startPos)
 {
     if(isEmpty(list))
@@ -35,15 +47,26 @@ int length(List* list, int startPos)
     length(list->rest, startPos + 1);
 }
 
+//Returns the amount of elements on a list
+int list_length(List* list)
+{
+    length(list, 0);
+}
+
 //Searches for the element in the specified position, set start to zero unless
 //You otherwise need to
-List* searchPos(List* list, int start, int pos)
+List* getPosition(List* list, int start, int pos)
 {
     if(start == pos)
     {
         return list;
     }
-    searchPos(list->rest, start + 1, pos);
+    getPosition(list->rest, start + 1, pos);
+}
+
+List* searchPos(List* list, int pos)
+{
+    return getPosition(list, 0, pos);
 }
 
 //Grabs the last element of a list
@@ -57,19 +80,19 @@ List* last(List* list)
 }
 
 //Inserts a value at a zero-indexed position in the list
-void insert(List* list, int val, int pos)
+void insert(List* list, int val, int ind)
 {
-    if(pos <= 0)
+    if(ind <= 0)
     {
         printf("Use the (join_head) function to insert at the start.\n");
         return;
     }
-    List* prev = searchPos(list, 0, pos - 1);
+    List* prev = searchPos(list, ind - 1);
     List* next = prev->rest;
     prev->rest = CreateList(val, next);
     printf("Inserted element into list.\n");
-    prev = nullptr;
-    next = nullptr;
+
+    //Set pointers to null before returning
 }
 
 //Returns a new list with the sspecified value at the start
@@ -83,7 +106,8 @@ void join_list(List* first, List* second)
 {
     List* connect = last(first);
     connect->rest = second;
-    connect = nullptr;
+
+    //Set pointers to null before returning
 }
 
 //Adds an element to the end of the list
@@ -91,7 +115,15 @@ void append_list(List* list, int val)
 {
     List* last_element = last(list);
     last_element->rest = CreateList(val, EmptyList());
+
+    //Set pointers to null before returning
     last_element = nullptr;
+}
+
+//Replaces an element with the value of your choice
+void replace(List* list, int ind, int val)
+{
+    searchPos(list, ind)->data = val;
 }
 
 //Displays all the elements of a list in a way that is easy to visualize
@@ -106,10 +138,3 @@ int DisplayList(List* display)
     printf("->");
     DisplayList(display->rest);
 }
-
-int main()
-{
-    List* my_list = CreateList(4, CreateList(1, CreateList(2, CreateList(3, EmptyList()))));
-    DisplayList(my_list);
-    return 0;
-}   
