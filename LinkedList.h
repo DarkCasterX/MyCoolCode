@@ -10,7 +10,9 @@ typedef struct List
 
 List* CreateList(int val, List* list);
 
-List* ListConstruct(int val, int start, int size);
+List* ListBuilder(int val, int start, int size);
+
+List* ListConstruct(int val, int size);
 
 List* EmptyList();
 
@@ -28,7 +30,7 @@ List* last(List* list);
 
 void insert(List* list, int val, int pos);
 
-List* join_head(List* list, int val);
+void join_head(List* list, int val);
 
 void join_list(List* first, List* second);
 
