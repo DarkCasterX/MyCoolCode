@@ -104,10 +104,10 @@ void insert(List* list, int val, int ind)
     //Set pointers to null before returning
 }
 
-//Returns a new list with the sspecified value at the start
-void join_head(List* list, int val)
+//Returns a new list with the specified value at the start
+List* join_head(List* list, int val)
 {
-    join_list(CreateList(val, EmptyList()), list);
+    return CreateList(val, list);
 }
 
 //Add the elements of the second list to the first
