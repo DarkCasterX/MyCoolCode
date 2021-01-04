@@ -30,7 +30,7 @@ List* last(List* list);
 
 void insert(List* list, int val, int pos);
 
-void join_head(List* list, int val);
+List* join_head(List* list, int val);
 
 void join_list(List* first, List* second);
 
