@@ -29,6 +29,24 @@ List* ListConstruct(int val, int size)
     ListBuilder(val, 0, size);
 }
 
+//Frees a list from memory and sets its pointer to zero
+void ListDestroy(List** list)
+{
+    if(!isEmpty(*list))
+    {
+        while (!isEmpty(*list))
+        {
+            List* temp = (*list);
+            (*list) = (*list)->rest;
+            free(temp);
+            DisplayList(*list);
+        }
+        *list = nullptr;
+        printf("Deleted list from memory.\n");
+    }
+
+}
+
 //Useful function to create an empty list
 List* EmptyList()
 {
@@ -100,8 +118,8 @@ void insert(List* list, int val, int ind)
     List* next = prev->rest;
     prev->rest = CreateList(val, next);
     printf("Inserted element into list at position %d\n", ind);
-
-    //Set pointers to null before returning
+    prev = nullptr;
+    next = nullptr;
 }
 
 //Returns a new list with the specified value at the start
@@ -117,6 +135,7 @@ void join_list(List* first, List* second)
     {
         List* connect = last(first);
         connect->rest = second;
+        connect = nullptr;
     }
     else if(isEmpty(first->rest))
     {
@@ -140,7 +159,7 @@ void replace(List* list, int ind, int val)
     searchPos(list, ind)->data = val;
 }
 
-//Displays all the elements of a list in a way that is easy to visualize
+//Recursively displays all the elements of a list in a way that is easy to visualize
 int DisplayList(List* display)
 {
     if(isEmpty(display))
