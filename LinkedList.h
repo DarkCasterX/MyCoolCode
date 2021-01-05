@@ -14,6 +14,8 @@ List* ListBuilder(int val, int start, int size);
 
 List* ListConstruct(int val, int size);
 
+void ListDestroy(List** list);
+
 List* EmptyList();
 
 int isEmpty(List* empty);
