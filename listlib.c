@@ -16,10 +16,7 @@ List* ListBuilder(int val, int start, int size)
     {
         return CreateList(val, ListBuilder(val, start + 1, size));
     }
-    else if( start >= size - 1)
-    {
-        return CreateList(val, EmptyList());
-    }
+    return CreateList(val, EmptyList());
 }
 
 
@@ -29,22 +26,23 @@ List* ListConstruct(int val, int size)
     ListBuilder(val, 0, size);
 }
 
-//Frees a list from memory and sets its pointer to zero
+//Recursively free all the elements in a list, then sets the pointer to null
 void ListDestroy(List** list)
 {
+    if(isEmpty(*list))
+    {
+        printf("List is empty\n");
+        *list = nullptr;
+        return;
+    }
     if(!isEmpty(*list))
     {
-        while (!isEmpty(*list))
-        {
-            List* temp = (*list);
-            (*list) = (*list)->rest;
-            free(temp);
-            DisplayList(*list);
-        }
-        *list = nullptr;
-        printf("Deleted list from memory.\n");
+        List* temp = (*list);
+        (*list) = (*list)->rest;
+        free(temp);
+        temp = nullptr;
+        ListDestroy(list);
     }
-
 }
 
 //Useful function to create an empty list
